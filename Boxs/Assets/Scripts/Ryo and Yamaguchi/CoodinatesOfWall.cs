@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CoodinatesOfWall : MonoBehaviour {
@@ -28,7 +28,7 @@ public class CoodinatesOfWall : MonoBehaviour {
 	{
 		if (ctl.frontFlg != RIGHT || ctl.frontFlg != LEFT) 
 		{
-			ctl.upFlg = WALL;
+			ctl.upFlg = BLOCK;
 		}
 		/*
 		if (player.GetComponent<PlayerControll> ().flag == BLOCK) 

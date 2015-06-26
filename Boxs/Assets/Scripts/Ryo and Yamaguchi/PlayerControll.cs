@@ -21,6 +21,9 @@ public class PlayerControll : MonoBehaviour {
 	public int downFlg = BLOCK;
 	public int upFlg = NONE;
 	public int floorFlg = BLOCK;
+
+	public int cnt;
+	
 	
 	Animator anim;
 	bool isGoAhead;
@@ -37,13 +40,15 @@ public class PlayerControll : MonoBehaviour {
 		anim.SetBool ("isMove", true);
 		
 		isGoAhead = true;
+		
 	}
 	
 	// Use this for initialization
 	void Start () {
-		//		fClimbPlayer ();
-
-		fNextMove ();
+		
+		//		fNextMove ();
+		
+		StartCoroutine ("fStart");
 	}
 	
 	// Update is called once per frame
@@ -52,6 +57,17 @@ public class PlayerControll : MonoBehaviour {
 		
 	}
 	
+	IEnumerator fStart(){
+		
+		for (int i = 0; i < cnt; i++) {
+			print (i);
+			yield return new WaitForSeconds (1.0f);
+			
+			//ここでカウントダウン用表示
+		}
+		
+		fNextMove ();
+	}
 	
 	//********************************************* 0620 yamaguchi start
 	public void fNextMove()
@@ -66,7 +82,6 @@ public class PlayerControll : MonoBehaviour {
 		
 		//********************************************* 0620 yamaguchi start
 		else if (floorFlg == RIGHT) {
-			print ("ん");
 			print ("fTurnRightPlayer");
 			StartCoroutine ("fTurnRightPlayer");
 			
@@ -79,7 +94,8 @@ public class PlayerControll : MonoBehaviour {
 		
 		else if (frontFlg == BLOCK && upFlg == BLOCK) {
 			print ("fTrouble");
-			fTroublePlayer ();
+//			fTroublePlayer ();
+			StartCoroutine("fTroublePlayer");
 		}
 		//********************************************* 0620 yamaguchi finish
 		
@@ -87,7 +103,7 @@ public class PlayerControll : MonoBehaviour {
 			print ("fClimbPlayer");
 			StartCoroutine ("fClimbPlayer");
 		}
-/*		//********************************************* 0620 yamaguchi finish
+		/*		//********************************************* 0620 yamaguchi finish
 		else if (floorFlg == NONE) {
 			print ("fFallPlayer");
 			StartCoroutine("fFallPlayer");
@@ -97,7 +113,7 @@ public class PlayerControll : MonoBehaviour {
 			print ("fDownPlayer");
 			StartCoroutine ("fDownPlayer");
 		}
-/*		else if (floorFlg == SPLING) {
+		/*		else if (floorFlg == SPLING) {
 
 			print ("fSpling1Player");
 			StartCoroutine ("fSpling1Player");
@@ -184,8 +200,8 @@ public class PlayerControll : MonoBehaviour {
 		float dist = 1F;
 		
 		float speed3 = 0.04f;
-
-				print ("横ジャンプ" + speed3 + " , " + (int)(1.0f / speed3));
+		
+		print ("横ジャンプ" + speed3 + " , " + (int)(1.0f / speed3));
 		
 		//for (int i = 0; i < (int)(dist / speed); i++)
 		for (int i = 0; i < 20; i++)
@@ -211,7 +227,7 @@ public class PlayerControll : MonoBehaviour {
 			transform.Translate (0, - speed2, speed3/5.0f);
 			yield return new WaitForSeconds (0.01F);
 		}
-
+		
 		/*		
 		print ("横ジャンプ" + speed3 + " , " + (int)(1.0f / speed3));
 		
@@ -323,12 +339,37 @@ public class PlayerControll : MonoBehaviour {
 	//Trouble Player
 	//*******************************************************************
 	
-	void fTroublePlayer()
+	IEnumerator fTroublePlayer()
 	{
 		
+//		anim.SetBool ("isTrouble", true);
+
 		anim.SetBool ("isTrouble", true);
+		
+		
+		float timeUp = 0;
+		
+		while(frontFlg == BLOCK && upFlg == BLOCK)
+		{
+			yield return new WaitForSeconds (0.1F);
+			timeUp += 0.1F;
+			
+			if (timeUp > 3)
+			{
+				fPeePlayer();
+			}
+		}
 	}
 	
+	//********************************************* 0620 yamaguchi start
+	//Peeing Player
+	//*******************************************************************
+	
+	void fPeePlayer()
+	{
+		print ("失禁");
+	}
+
 	//********************************************* 0620 yamaguchi start
 	//Goal Player
 	//*******************************************************************

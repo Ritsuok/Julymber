@@ -7,13 +7,11 @@ public class DropCubBtnKawashima : MonoBehaviour {
 	public bool isStraightNoMore = false;
 	public bool isLeftNoMore = false;
 	public bool isRightNoMore = false;
+	public bool isBombNoMore = false; // < 0629 igarashi add
 	// Use this for initialization
 	void Start () {
 		main =  GameObject.Find ("Main");
 		mainkawashima = main.GetComponent<MainKawashima> ();
-
-
-	
 	}
 	
 	// Update is called once per frame
@@ -45,4 +43,15 @@ public class DropCubBtnKawashima : MonoBehaviour {
 		main.SendMessage ("fRightUsed");
 		mainkawashima.fDrop (2);
 	}
+
+//********************************************* 0629 igarashi start
+	public void fBombClicked() {
+		print ("start fBombClicked");
+		if(isBombNoMore) {
+			return;
+		}
+		main.SendMessage("fBombUsed");
+		mainkawashima.fDrop(3);
+	}
+//********************************************* 0629 igarashi end
 }

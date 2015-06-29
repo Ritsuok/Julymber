@@ -222,6 +222,10 @@ public class MainKawashima : MonoBehaviour {
 				MeshRenderer hitMeshRenderer;
 				
 				if (Physics.Raycast(ray, out hit, distance)) {
+
+					//sound
+					Sounds.SEcursor(); // < 0629 igarashi add
+
 					if(touchedBeforeObject != null){
 						hitMeshRenderer = touchedBeforeObject.GetComponent<MeshRenderer>();
 						hitMeshRenderer.material = touchedBeforeMaterial;
@@ -256,6 +260,10 @@ public class MainKawashima : MonoBehaviour {
 		if (isSelected == false) {
 			return;
 		}
+
+		//sound
+		Sounds.SEdecision (); // < 0629 igarashi add
+
 		float dropPositionX = touchedBeforeObject.transform.position.x;
 		float dropPositionZ = touchedBeforeObject.transform.position.z;
 		GameObject cubeInst = Instantiate (listSelectableCubes[index], new Vector3 (dropPositionX, fallHeight, dropPositionZ), transform.rotation) as GameObject;

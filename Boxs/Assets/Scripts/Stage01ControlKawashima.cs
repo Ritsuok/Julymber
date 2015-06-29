@@ -8,6 +8,7 @@ public class Stage01ControlKawashima : MonoBehaviour {
 	public int cubeLeft;
 	public int cubeStraight;
 	public int cubeRight;
+	public int cubeBomb; // < 0629 igarashi add
 
 	private GameObject main;
 	private MainKawashima mainkawashima;
@@ -15,18 +16,22 @@ public class Stage01ControlKawashima : MonoBehaviour {
 	private Text straightTxt;
 	private Text leftTxt;
 	private Text rightTxt;
+	private Text bombTxt;  // < 0629 igarashi add
 
 	private GameObject straightObj;
 	private GameObject leftObj;
 	private GameObject rightObj;
+	private GameObject bombObj;  // < 0629 igarashi add
 
 	private GameObject straightBtn;
 	private GameObject leftBtn;
 	private GameObject rightBtn;
+	private GameObject bombBtn;  // < 0629 igarashi add
 	
 	private DropCubBtnKawashima dropcubeS;
 	private DropCubBtnKawashima dropcubeL;
 	private DropCubBtnKawashima dropcubeR;
+	private DropCubBtnKawashima dropcubeB;  // < 0629 igarashi add
 	// Use this for initialization
 	void Start () {
 		main =  GameObject.Find ("Main");
@@ -52,6 +57,14 @@ public class Stage01ControlKawashima : MonoBehaviour {
 		rightBtn = GameObject.Find ("ButtonDropRight");
 		dropcubeR = rightBtn.GetComponent<DropCubBtnKawashima> ();
 
+
+//********************************************* 0629 igarashi start
+		bombObj = GameObject.Find ("NumberBombText");
+		bombTxt = bombObj.GetComponent<Text>();
+		bombTxt.text = cubeBomb.ToString();
+		bombBtn = GameObject.Find ("ButtonDropBomb");
+		dropcubeB= bombBtn.GetComponent<DropCubBtnKawashima> ();
+//********************************************* 0629 igarashi end
 	
 	}
 	
@@ -98,4 +111,23 @@ public class Stage01ControlKawashima : MonoBehaviour {
 			return;
 		}
 	}
+
+
+//********************************************* 0629 igarashi start
+	public void fBombUsed() {
+		if (mainkawashima.isSelected == false){
+			return;
+		}
+
+		cubeBomb --;
+		bombTxt.text = cubeBomb.ToString ();
+		
+		if (cubeBomb <= 0) {
+			dropcubeR.isRightNoMore = true;
+			return;
+		}
+	}
+//********************************************* 0629 igarashi end
+
+
 }

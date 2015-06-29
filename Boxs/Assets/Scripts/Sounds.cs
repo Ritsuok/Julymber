@@ -5,12 +5,20 @@ public class Sounds : MonoBehaviour {
 
 	public AudioClip cursor;
 	static AudioSource cursorAudio;
+	public AudioClip cursor2;
+	static AudioSource cursor2Audio;
 
 	public AudioClip decision;
 	static AudioSource decisionAudio;
 
 	public AudioClip bomb;
 	static AudioSource bombAudio;
+
+	public AudioClip shine;
+	static AudioSource shineAudio;
+
+	public AudioClip union;
+	static AudioSource unionAudio;
 
 	public AudioClip select;
 	static AudioSource selectAudio;
@@ -20,6 +28,9 @@ public class Sounds : MonoBehaviour {
 	
 	public AudioClip error;
 	static AudioSource errorAudio;
+
+	public AudioClip shutter;
+	static AudioSource shutterAudio;
 	
 	
 	// Use this for initialization
@@ -30,6 +41,11 @@ public class Sounds : MonoBehaviour {
 		cursorAudio.clip = cursor;
 		cursorAudio.loop = false;
 		cursorAudio.volume = 1F;
+		//cursor2
+		cursor2Audio = gameObject.AddComponent<AudioSource> ();
+		cursor2Audio.clip = cursor2;
+		cursor2Audio.loop = false;
+		cursor2Audio.volume = 1F;
 		
 		//dicision
 		decisionAudio = gameObject.AddComponent<AudioSource> ();
@@ -42,6 +58,18 @@ public class Sounds : MonoBehaviour {
 		bombAudio.clip = bomb;
 		bombAudio.loop = false;
 		bombAudio.volume = 1F;
+
+		//shine
+		shineAudio = gameObject.AddComponent<AudioSource> ();
+		shineAudio.clip = shine;
+		shineAudio.loop = false;
+		shineAudio.volume = 1F;
+
+		//union
+		unionAudio = gameObject.AddComponent<AudioSource> ();
+		unionAudio.clip = union;
+		unionAudio.loop = false;
+		unionAudio.volume = 1F;
 		
 		//select
 		selectAudio = gameObject.AddComponent<AudioSource> ();
@@ -60,13 +88,27 @@ public class Sounds : MonoBehaviour {
 		errorAudio.clip = error;
 		errorAudio.loop = false;
 		errorAudio.volume = 1F;
+
+		//shutter
+		shutterAudio = gameObject.AddComponent<AudioSource> ();
+		shutterAudio.clip =shutter;
+		shutterAudio.loop = false;
+		shutterAudio.volume = 1F;
 	}
 
 	
 	public static void SEcursor() { cursorAudio.Play (); }
+	public static void SEcursor2() { cursor2Audio.Play (); }
+
 	public static void SEdecision() { decisionAudio.Play (); }
+
 	public static void SEbomb() { bombAudio.Play (); }
+	public static void SEshine() { shineAudio.Play (); }
+	public static void SEunion() { unionAudio.Play (); }
+
 	public static void SEselect() { selectAudio.Play (); }
 	public static void SEcancel() { cancelAudio.Play (); }
 	public static void SEerror() { errorAudio.Play (); }
+
+	public static void SEshutter() { shutterAudio.Play (); }
 }

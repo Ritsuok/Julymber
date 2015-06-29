@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Sounds : MonoBehaviour {
 
+	public AudioClip stage;
+	static AudioSource stageAudio;
+
 	public AudioClip cursor;
 	static AudioSource cursorAudio;
 	public AudioClip cursor2;
@@ -36,6 +39,13 @@ public class Sounds : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
+		//stage
+		stageAudio = gameObject.AddComponent<AudioSource> ();
+		stageAudio.clip = stage;
+		stageAudio.loop = true;
+		stageAudio.volume = 1F;
+
+
 		//cursor
 		cursorAudio = gameObject.AddComponent<AudioSource> ();
 		cursorAudio.clip = cursor;
@@ -96,6 +106,7 @@ public class Sounds : MonoBehaviour {
 		shutterAudio.volume = 1F;
 	}
 
+	public static void BGMstage() { stageAudio.Play (); }
 	
 	public static void SEcursor() { cursorAudio.Play (); }
 	public static void SEcursor2() { cursor2Audio.Play (); }

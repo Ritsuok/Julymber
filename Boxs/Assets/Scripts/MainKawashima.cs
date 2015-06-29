@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+
 
 public class MainKawashima : MonoBehaviour {
 	//public int xPos;
@@ -33,9 +35,10 @@ public class MainKawashima : MonoBehaviour {
 	long timer1 = 0;
 	long timer2 = 0;
 	long timer3 = 0;
-	private GameObject uiPanel;
-	private float uiPannelHeight;
+	//private GameObject uiPanel;
+	//private float uiPannelHeight;
 	public GameObject effectBox;
+	public bool isUi;
 
 	// Use this for initialization
 	void Start () {
@@ -46,8 +49,11 @@ public class MainKawashima : MonoBehaviour {
 		fallHeight = 6;
 		listFloors = new List<GameObject>();
 		listCubes = new List<GameObject>();
-		uiPanel = GameObject.Find ("UIPanel");
-		uiPannelHeight = uiPanel.GetComponent<RectTransform> ().sizeDelta.y;
+		//uiPanel = GameObject.Find ("UIPanel");
+		//uiPannelHeight = uiPanel.GetComponent<RectTransform> ().sizeDelta.y;
+
+
+
 		//listSelectableCubes = new List<GameObject> ();
 		//listNotRayedFloors = new List<GameObject>();
 		ray = new Ray();
@@ -86,6 +92,7 @@ public class MainKawashima : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		fTouchChangeMaterial ();
+		Debug.Log("isUi = " + isUi);
 		//fCreateCube ();
 
 	}
@@ -195,9 +202,9 @@ public class MainKawashima : MonoBehaviour {
 			timer1 = System.DateTime.Now.Ticks;
 			Debug.Log ("GetMouseButtonDown(0)" + timer1);
 			Debug.Log("Input.mousePosition.y = " + Input.mousePosition.y);
-			Debug.Log("UIPanel transform.position = " + uiPanel.transform.position);
-			Debug.Log("UIPanel localScaleY = " + uiPanel.transform.localScale.y);
-			Debug.Log("UIPanel sizeDelta.y = " + uiPannelHeight);
+			//Debug.Log("UIPanel transform.position = " + uiPanel.transform.position);
+			//Debug.Log("UIPanel localScaleY = " + uiPanel.transform.localScale.y);
+			//Debug.Log("UIPanel sizeDelta.y = " + uiPannelHeight);
 		}
 		if (Input.GetMouseButtonUp(0)) {
 			//timer2 = Time.deltaTime;
@@ -206,8 +213,21 @@ public class MainKawashima : MonoBehaviour {
 			timer3 = timer2 - timer1;
 			Debug.Log("timer1 = " + timer1);
 			Debug.Log("(timer2-timer1) = " + timer3);
-			
-			if( timer3 < 3500000 && Input.mousePosition.y >= uiPannelHeight){
+/*
+			Vector2 worldPoint2d = camera.ScreenToWorldPoint(Input.mousePosition);
+			Collider2D collider2D = Physics2D.OverlapPoint(worldPoint2d);
+			if(collider2D) {
+				Debug.Log("Hit!");
+				Debug.Log(collider2D);
+			}
+
+
+*/
+
+
+
+//			if( timer3 < 3500000 && Input.mousePosition.y >= uiPannelHeight){
+			if( timer3 < 3500000 && !isUi){
 				print ("RaycastStarted");
 				// メインカメラからクリックしたポジションに向かってRayを撃つ。
 				Ray ray = camera.ScreenPointToRay(Input.mousePosition);
@@ -216,12 +236,20 @@ public class MainKawashima : MonoBehaviour {
 				//(メソッド,秒数)を指定
 				//Invoke("hogehoge",0.01f);
 				//StartCoroutine("hogehoge");
+
+				// Bit shift the index of the layer (6) to get a bit mask
+				int layerMask = 1 << 7;
 				
+				// This would cast rays only against colliders in layer 6.
+				// But instead we want to collide against everything except layer 6. The ~ operator does this, it inverts a bitmask.
+
+				layerMask = ~layerMask;
+
 				
 				RaycastHit hit = new RaycastHit();
 				MeshRenderer hitMeshRenderer;
-				
-				if (Physics.Raycast(ray, out hit, distance)) {
+
+				if (Physics.Raycast(ray, out hit, distance, layerMask)) {
 
 					//sound
 					Sounds.SEcursor(); // < 0629 igarashi add
@@ -269,6 +297,8 @@ public class MainKawashima : MonoBehaviour {
 		GameObject cubeInst = Instantiate (listSelectableCubes[index], new Vector3 (dropPositionX, fallHeight, dropPositionZ), transform.rotation) as GameObject;
 		listCubes.Add(cubeInst);
 	}
+
+
 /*
 	private float timer;
 	private float waitingTime = 0.5f;

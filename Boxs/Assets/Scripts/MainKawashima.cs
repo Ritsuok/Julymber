@@ -92,7 +92,7 @@ public class MainKawashima : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		fTouchChangeMaterial ();
-		Debug.Log("isUi = " + isUi);
+//		Debug.Log("isUi = " + isUi);
 		//fCreateCube ();
 
 	}

@@ -134,7 +134,7 @@ public class PlayerControll : MonoBehaviour {
 		
 		for (int i = 0; i < cnt; i++) {
 			print (i);
-			cdText.text = (cnt - i).ToString();
+			cdText.text = (cnt - i - 1).ToString();
 			//			Text target = cdCanvas.GetComponent<Text>();
 			yield return new WaitForSeconds (1.0f);
 			
@@ -304,10 +304,21 @@ public class PlayerControll : MonoBehaviour {
 			transform.Translate (0, 0, speed3);
 			yield return new WaitForSeconds (0.01F);
 		}
+
+		print ("downFlg = " + downFlg);
+		yield return new WaitForSeconds (0.03f);
+
+
+//		if (downFlg == NONE) {
+//			StartCoroutine("fFallPlayer");
+//			print ("GAMEOVER");
+//			yield return new WaitForSeconds(10.0f);
+//		}
 		//		transform.Translate (0, 0, 1.0f - 25.0f*(int)(dist / speed3));
 		
-		//yield return new WaitForSeconds (5F);
-		
+		//yield return new WaitForSeconds (0.1F);
+
+
 		print ((int)(dist / speed));
 		print (1.0f - (int)(dist / speed)*speed);
 		
@@ -321,7 +332,12 @@ public class PlayerControll : MonoBehaviour {
 			transform.Translate (0, - speed2, speed3/5.0f);
 			yield return new WaitForSeconds (0.01F);
 		}
-		
+
+		if (downFlg == NONE) {
+			StartCoroutine("fFallPlayer");
+			print ("GAMEOVER");
+			yield return new WaitForSeconds(30.0f);
+		}
 		/*		
 		print ("横ジャンプ" + speed3 + " , " + (int)(1.0f / speed3));
 		
@@ -352,6 +368,9 @@ public class PlayerControll : MonoBehaviour {
 		
 */		
 		yield return new WaitForSeconds (0.5F);
+		print ("downFlg = " + downFlg);
+
+
 		
 		anim.SetTrigger ("isMoveTrigger");
 		

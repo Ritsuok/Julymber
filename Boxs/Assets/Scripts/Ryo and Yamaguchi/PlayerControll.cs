@@ -1,5 +1,5 @@
 ﻿/*
- * 0630 yamaguchi
+ * 0630 yamaguchi count down
  * 
  * 実装
  * 　スタート時のカウントダウン
@@ -12,8 +12,28 @@
  * 
  * 必要なスクリプト
  *　PlayerControll.cs内
- *　0630 yamaguchiで囲まれている2箇所
- * 
+ *　0630 yamaguchi count downで囲まれている2箇所
+ *
+ *
+ ****************************************************************************************************
+ ****************************************************************************************************
+ ****************************************************************************************************
+ *
+ * 0630 yamaguchi dash
+ *
+ *実装
+ *　speed up button 押下時 速度up
+ *
+ *内容
+ *　左上のSPEED UP button押下中のみplayerのspeedが3倍になる
+ *
+ *必要なオブジェクト
+ *　SpeedUpCanvas および その子オブジェクト全て
+ *
+ *必要なスクリプト
+ *　PlayerControll.cs内
+ *　0630 yamaguchi dashで囲まれている4箇所
+ *
 */
 
 using UnityEngine;
@@ -40,7 +60,7 @@ public class PlayerControll : MonoBehaviour {
 	public int downFlg = BLOCK;
 	public int upFlg = NONE;
 	public int floorFlg = BLOCK;
-
+	
 	public int cnt;
 	
 	
@@ -48,17 +68,22 @@ public class PlayerControll : MonoBehaviour {
 	bool isGoAhead;
 	
 	string direction;
-
-	//*************************************************** 0630 yamaguchi start
+	
+	//*************************************************** 0630 yamaguchi count down start
 	private GameObject cdCanvas;
 	private Text cdText;
-
+	
 	public int startFlg;
-
+	
 	public void fStartButton(){
 		this.startFlg = 1;
 	}
-	//*************************************************** 0630 yamaguchi finish
+	//*************************************************** 0630 yamaguchi count down finish
+
+	//*************************************************** 0630 yamaguchi dash start
+	private int dashFlg = 0;
+	private float speed0;
+	//*************************************************** 0630 yamaguchi dash finish
 	void Awake()
 	{
 		downFlg = BLOCK;
@@ -78,6 +103,10 @@ public class PlayerControll : MonoBehaviour {
 		//		fNextMove ();
 		
 		StartCoroutine ("fStart");
+
+		//*************************************************** 0630 yamaguchi dash start
+		speed0 = speed;
+		//*************************************************** 0630 yamaguchi dash finish
 	}
 	
 	// Update is called once per frame
@@ -85,27 +114,40 @@ public class PlayerControll : MonoBehaviour {
 	{
 		
 	}
+
+	//*************************************************** 0630 yamaguchi dash start
+	public void setDashFlgON(){
+		this.dashFlg = 1;
+		print ("set dashFlg ON");
+	}
+	public void setDashFlgOFF(){
+		this.dashFlg = 0;
+		print ("set dashFlg OFF");
+	}
+
+	//*************************************************** 0630 yamaguchi dash finish
 	
 	IEnumerator fStart(){
-//********************************************************************* 0630 yamaguchi start
+		//********************************************************************* 0630 yamaguchi count down start
 		cdCanvas = GameObject.Find ("CountDownText");
 		cdText = cdCanvas.GetComponent<Text>();
-
+		
 		for (int i = 0; i < cnt; i++) {
 			print (i);
 			cdText.text = (cnt - i).ToString();
-//			Text target = cdCanvas.GetComponent<Text>();
+			//			Text target = cdCanvas.GetComponent<Text>();
 			yield return new WaitForSeconds (1.0f);
-
+			
 			if(startFlg == 1){
 				break;
 			}
 			//ここでカウントダウン用表示
 		}
-
+		
 		cdText.text = "GO";
+		
+		//********************************************************************* 0630 yamaguchi count down finish
 
-//********************************************************************* 0630 yamaguchi finish
 
 		fNextMove ();
 	}
@@ -113,6 +155,16 @@ public class PlayerControll : MonoBehaviour {
 	//********************************************* 0620 yamaguchi start
 	public void fNextMove()
 	{
+		//*************************************************** 0630 yamaguchi dash start
+		print ("dashFlg check" + dashFlg);
+		if (dashFlg == 1) {
+			this.speed *= 3;
+			dashFlg = 2;
+		} else if (dashFlg == 0) {
+			this.speed = speed0;
+		}
+		//*************************************************** 0630 yamaguchi dash finish
+
 		print ("fNextMove player.position = " + transform.position.x + " , " + transform.position.y + " , " + transform.position.z);
 		print ("floorFlg = " + floorFlg + " downFlg = " + downFlg);
 		
@@ -135,7 +187,7 @@ public class PlayerControll : MonoBehaviour {
 		
 		else if (frontFlg == BLOCK && upFlg == BLOCK) {
 			print ("fTrouble");
-//			fTroublePlayer ();
+			//			fTroublePlayer ();
 			StartCoroutine("fTroublePlayer");
 		}
 		//********************************************* 0620 yamaguchi finish
@@ -178,7 +230,8 @@ public class PlayerControll : MonoBehaviour {
 		//GetComponent<Rigidbody> ().useGravity = true;
 		//GetComponent<CapsuleCollider> ().enabled = true;
 		print ("fWalkPlayer" + transform.position.z);
-		
+
+
 		for (int i = 0; i < (int)(1.0f / speed); i++)
 		{
 			transform.Translate (0, 0, speed);
@@ -383,8 +436,8 @@ public class PlayerControll : MonoBehaviour {
 	IEnumerator fTroublePlayer()
 	{
 		
-//		anim.SetBool ("isTrouble", true);
-
+		//		anim.SetBool ("isTrouble", true);
+		
 		anim.SetBool ("isTrouble", true);
 		
 		
@@ -410,7 +463,7 @@ public class PlayerControll : MonoBehaviour {
 	{
 		print ("失禁");
 	}
-
+	
 	//********************************************* 0620 yamaguchi start
 	//Goal Player
 	//*******************************************************************
@@ -459,7 +512,8 @@ public class PlayerControll : MonoBehaviour {
 		floorFlg = BLOCK;
 		
 		yield return new WaitForSeconds (1.5f);
-		anim.SetTrigger ("isMoveTrigger");
+
+			anim.SetTrigger ("isMoveTrigger");
 		fNextMove ();
 	}
 	

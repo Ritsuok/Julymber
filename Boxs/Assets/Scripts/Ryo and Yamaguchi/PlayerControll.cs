@@ -1,5 +1,24 @@
-﻿using UnityEngine;
+﻿/*
+ * 0630 yamaguchi
+ * 
+ * 実装
+ * 　スタート時のカウントダウン
+ * 
+ * 内容
+ * 　右上のカウントダウンエリアのtextに player内のstartFlgの値分カウントダウンの表示がされる
+ * 
+ * 必要なオブジェクト
+ * 　CountDownCanvas および その子オブジェクト全て
+ * 
+ * 必要なスクリプト
+ *　PlayerControll.cs内
+ *　0630 yamaguchiで囲まれている2箇所
+ * 
+*/
+
+using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerControll : MonoBehaviour {
 	const int NONE =0;
@@ -29,7 +48,17 @@ public class PlayerControll : MonoBehaviour {
 	bool isGoAhead;
 	
 	string direction;
-	
+
+	//*************************************************** 0630 yamaguchi start
+	private GameObject cdCanvas;
+	private Text cdText;
+
+	public int startFlg;
+
+	public void fStartButton(){
+		this.startFlg = 1;
+	}
+	//*************************************************** 0630 yamaguchi finish
 	void Awake()
 	{
 		downFlg = BLOCK;
@@ -58,14 +87,26 @@ public class PlayerControll : MonoBehaviour {
 	}
 	
 	IEnumerator fStart(){
-		
+//********************************************************************* 0630 yamaguchi start
+		cdCanvas = GameObject.Find ("CountDownText");
+		cdText = cdCanvas.GetComponent<Text>();
+
 		for (int i = 0; i < cnt; i++) {
 			print (i);
+			cdText.text = (cnt - i).ToString();
+//			Text target = cdCanvas.GetComponent<Text>();
 			yield return new WaitForSeconds (1.0f);
-			
+
+			if(startFlg == 1){
+				break;
+			}
 			//ここでカウントダウン用表示
 		}
-		
+
+		cdText.text = "GO";
+
+//********************************************************************* 0630 yamaguchi finish
+
 		fNextMove ();
 	}
 	

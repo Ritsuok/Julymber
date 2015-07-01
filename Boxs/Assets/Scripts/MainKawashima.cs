@@ -295,7 +295,10 @@ public class MainKawashima : MonoBehaviour {
 		float dropPositionX = touchedBeforeObject.transform.position.x;
 		float dropPositionZ = touchedBeforeObject.transform.position.z;
 		GameObject cubeInst = Instantiate (listSelectableCubes[index], new Vector3 (dropPositionX, fallHeight, dropPositionZ), transform.rotation) as GameObject;
+		//cubeInst.transform.localrotation = 
+		cubeInst.transform.localRotation = Quaternion.Euler (270, 0, 0);
 		listCubes.Add(cubeInst);
+
 	}
 
 

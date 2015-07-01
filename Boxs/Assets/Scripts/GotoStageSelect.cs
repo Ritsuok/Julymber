@@ -15,7 +15,7 @@ public class GotoStageSelect : MonoBehaviour {
 	}
 	public void fGotoStageSelect()
 	{
-		Application.LoadLevel(changeSceneName);
+		Application.LoadLevel("StageSelect");
 	}
 
 }

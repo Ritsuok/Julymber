@@ -1,4 +1,4 @@
-﻿/*
+﻿/*aho
  * 0630 yamaguchi count down
  * 
  * 実装
@@ -79,10 +79,12 @@ public class PlayerControll : MonoBehaviour {
 		this.startFlg = 1;
 	}
 	//*************************************************** 0630 yamaguchi count down finish
-
+	
 	//*************************************************** 0630 yamaguchi dash start
 	private int dashFlg = 0;
 	private float speed0;
+	
+	private int testCnt=0;
 	//*************************************************** 0630 yamaguchi dash finish
 	void Awake()
 	{
@@ -103,7 +105,7 @@ public class PlayerControll : MonoBehaviour {
 		//		fNextMove ();
 		
 		StartCoroutine ("fStart");
-
+		
 		//*************************************************** 0630 yamaguchi dash start
 		speed0 = speed;
 		//*************************************************** 0630 yamaguchi dash finish
@@ -114,7 +116,7 @@ public class PlayerControll : MonoBehaviour {
 	{
 		
 	}
-
+	
 	//*************************************************** 0630 yamaguchi dash start
 	public void setDashFlgON(){
 		this.dashFlg = 1;
@@ -124,7 +126,7 @@ public class PlayerControll : MonoBehaviour {
 		this.dashFlg = 0;
 		print ("set dashFlg OFF");
 	}
-
+	
 	//*************************************************** 0630 yamaguchi dash finish
 	
 	IEnumerator fStart(){
@@ -147,8 +149,8 @@ public class PlayerControll : MonoBehaviour {
 		cdText.text = "GO";
 		
 		//********************************************************************* 0630 yamaguchi count down finish
-
-
+		
+		
 		fNextMove ();
 	}
 	
@@ -164,7 +166,7 @@ public class PlayerControll : MonoBehaviour {
 			this.speed = speed0;
 		}
 		//*************************************************** 0630 yamaguchi dash finish
-
+		
 		print ("fNextMove player.position = " + transform.position.x + " , " + transform.position.y + " , " + transform.position.z);
 		print ("floorFlg = " + floorFlg + " downFlg = " + downFlg);
 		
@@ -206,12 +208,11 @@ public class PlayerControll : MonoBehaviour {
 			print ("fDownPlayer");
 			StartCoroutine ("fDownPlayer");
 		}
-		/*		else if (floorFlg == SPLING) {
-
+		else if (floorFlg == SPLING) {
+			
 			print ("fSpling1Player");
 			StartCoroutine ("fSpling1Player");
 		}
-*/
 		else if (frontFlg== NONE)
 		{
 			print ("fWalkPlayer");
@@ -230,8 +231,8 @@ public class PlayerControll : MonoBehaviour {
 		//GetComponent<Rigidbody> ().useGravity = true;
 		//GetComponent<CapsuleCollider> ().enabled = true;
 		print ("fWalkPlayer" + transform.position.z);
-
-
+		
+		
 		for (int i = 0; i < (int)(1.0f / speed); i++)
 		{
 			transform.Translate (0, 0, speed);
@@ -297,28 +298,31 @@ public class PlayerControll : MonoBehaviour {
 		
 		print ("横ジャンプ" + speed3 + " , " + (int)(1.0f / speed3));
 		
+		float deltaDistZ = 0;
+		float deltaDistY = 0;
 		//for (int i = 0; i < (int)(dist / speed); i++)
 		for (int i = 0; i < 20; i++)
 		{
 			
 			transform.Translate (0, 0, speed3);
+			deltaDistZ += speed3;
 			yield return new WaitForSeconds (0.01F);
 		}
-
+		
 		print ("downFlg = " + downFlg);
 		yield return new WaitForSeconds (0.03f);
-
-
-//		if (downFlg == NONE) {
-//			StartCoroutine("fFallPlayer");
-//			print ("GAMEOVER");
-//			yield return new WaitForSeconds(10.0f);
-//		}
+		
+		
+		//		if (downFlg == NONE) {
+		//			StartCoroutine("fFallPlayer");
+		//			print ("GAMEOVER");
+		//			yield return new WaitForSeconds(10.0f);
+		//		}
 		//		transform.Translate (0, 0, 1.0f - 25.0f*(int)(dist / speed3));
 		
 		//yield return new WaitForSeconds (0.1F);
-
-
+		
+		
 		print ((int)(dist / speed));
 		print (1.0f - (int)(dist / speed)*speed);
 		
@@ -331,16 +335,36 @@ public class PlayerControll : MonoBehaviour {
 			
 			transform.Translate (0, - speed2, speed3/5.0f);
 			yield return new WaitForSeconds (0.01F);
+			
+			deltaDistZ += speed3/5.0f;
+			deltaDistY += speed2;
 		}
-
-//		int fallCnt
-		while (downFlg == NONE) {
+		
+		transform.Translate (0, -(1.0f - deltaDistY), 1 - deltaDistZ);
+		
+		if (floorFlg != NONE) {
+			yield return new WaitForSeconds (0.5f);
+			print ("deltaDistY = " + deltaDistY);
+		}
+		
+		
+		/*
+		int fallCnt = 0;
+		while (floorFlg == NONE) {
 			StartCoroutine("fFallPlayer");
-			print ("GAMEOVER" + downFlg);
 			yield return new WaitForSeconds(0.05f);
-			print ("GAMEOVER" + downFlg + transform.position.y);
-			yield return new WaitForSeconds(0.05f);
+			fallCnt++;
+
+			if(fallCnt >5){
+				Application.LoadLevel("GameOver");
+			}
 		}
+		if(fallCnt >0){
+			yield return new WaitForSeconds(0.5f);
+			Application.LoadLevel("GameOver");
+		}
+		*/
+		StartCoroutine ("fFallGameOverChk");
 		/*		
 		print ("横ジャンプ" + speed3 + " , " + (int)(1.0f / speed3));
 		
@@ -372,8 +396,8 @@ public class PlayerControll : MonoBehaviour {
 */		
 		yield return new WaitForSeconds (0.5F);
 		print ("downFlg = " + downFlg);
-
-
+		
+		
 		
 		anim.SetTrigger ("isMoveTrigger");
 		
@@ -484,6 +508,8 @@ public class PlayerControll : MonoBehaviour {
 	void fPeePlayer()
 	{
 		print ("失禁");
+		
+		Application.LoadLevel ("GameOver");
 	}
 	
 	//********************************************* 0620 yamaguchi start
@@ -505,8 +531,10 @@ public class PlayerControll : MonoBehaviour {
 		
 		yield return new WaitForSeconds(0.01f);
 		
-		
 		anim.SetTrigger ("isJumpTrigger");
+		//		anim.SetBool ("test",true);
+		print (testCnt);
+		testCnt++;
 		
 		int count = (int)(1.0f / 0.02f)-2;
 		for (int i = 0; i < count; i++) {
@@ -514,7 +542,12 @@ public class PlayerControll : MonoBehaviour {
 			transform.Translate(0,0,2.0f/count);
 		}
 		
-		yield return new WaitForSeconds(0.01f);
+		yield return new WaitForSeconds (0.01f);
+		if (floorFlg == NONE) {
+			StartCoroutine("fFallGameOverChk");
+		}
+		
+		yield return new WaitForSeconds(0.5f);
 		
 		//		floorFlg = BLOCK;
 		//		anim.SetTrigger ("isMoveTrigger");
@@ -531,12 +564,29 @@ public class PlayerControll : MonoBehaviour {
 			yield return new WaitForSeconds (0.01f);
 		}
 		
-//		floorFlg = BLOCK;
+		//		floorFlg = BLOCK;
 		
 		yield return new WaitForSeconds (1.5f);
-
-			anim.SetTrigger ("isMoveTrigger");
+		
+		anim.SetTrigger ("isMoveTrigger");
 		//fNextMove ();
+	}
+	
+	IEnumerator fFallGameOverChk(){
+		int fallCnt = 0;
+		while (floorFlg == NONE) {
+			StartCoroutine("fFallPlayer");
+			yield return new WaitForSeconds(0.05f);
+			fallCnt++;
+			
+			if(fallCnt >5){
+				Application.LoadLevel("GameOver");
+			}
+		}
+		if(fallCnt >0){
+			yield return new WaitForSeconds(0.5f);
+			Application.LoadLevel("GameOver");
+		}
 	}
 	
 }

@@ -11,6 +11,8 @@ TagManager:
   - TurnR
   - TurnL
   - Spling
+  - Bomb
+  - CheckOut
   layers:
   - Default
   - TransparentFX

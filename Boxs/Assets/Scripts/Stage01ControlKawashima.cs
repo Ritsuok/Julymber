@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Stage01ControlKawashima : MonoBehaviour {
 
-
+	public int cubeSpling;
 	public int cubeLeft;
 	public int cubeStraight;
 	public int cubeRight;
@@ -13,21 +13,25 @@ public class Stage01ControlKawashima : MonoBehaviour {
 	private GameObject main;
 	private MainKawashima mainkawashima;
 
+	private Text splingTxt;
 	private Text straightTxt;
 	private Text leftTxt;
 	private Text rightTxt;
 	private Text bombTxt;  // < 0629 igarashi add
 
+	private GameObject splingObj;
 	private GameObject straightObj;
 	private GameObject leftObj;
 	private GameObject rightObj;
 	private GameObject bombObj;  // < 0629 igarashi add
 
+	private GameObject splingBtn;
 	private GameObject straightBtn;
 	private GameObject leftBtn;
 	private GameObject rightBtn;
 	private GameObject bombBtn;  // < 0629 igarashi add
-	
+
+	private DropCubBtnKawashima dropcubeJ;
 	private DropCubBtnKawashima dropcubeS;
 	private DropCubBtnKawashima dropcubeL;
 	private DropCubBtnKawashima dropcubeR;
@@ -37,6 +41,11 @@ public class Stage01ControlKawashima : MonoBehaviour {
 		main =  GameObject.Find ("Main");
 		mainkawashima = main.GetComponent<MainKawashima> ();
 
+		splingObj = GameObject.Find ("NumberSplingText");
+		splingTxt = splingObj.GetComponent<Text>();
+		splingTxt.text = cubeSpling.ToString();
+		splingBtn = GameObject.Find ("ButtonDropSpling");
+		dropcubeJ = splingBtn.GetComponent<DropCubBtnKawashima> ();
 
 		straightObj = GameObject.Find ("NumberStraightText");
 		straightTxt = straightObj.GetComponent<Text>();
@@ -71,6 +80,19 @@ public class Stage01ControlKawashima : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+	public void fSplingUsed(){
+		if (mainkawashima.isSelected == false){
+			return;
+		}
+		
+		cubeSpling --;
+		splingTxt.text = cubeSpling.ToString ();
+		
+		if (cubeSpling <= 0) {
+			dropcubeJ.isSplingNoMore = true;
+			return;
+		}
 	}
 	public void fStraightUsed(){
 		if (mainkawashima.isSelected == false){

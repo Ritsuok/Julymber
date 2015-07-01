@@ -5,15 +5,9 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Main Camera
+  m_Name: MainCamera
   serializedVersion: 5
-  m_AnimatorParameters:
-  - m_Name: New Trigger
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+  m_AnimatorParameters: []
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -26,7 +20,7 @@ AnimatorController:
     m_DefaultWeight: 0
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
 --- !u!206 &20681958
 BlendTree:
   m_ObjectHideFlags: 1
@@ -54,9 +48,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: .25
+  m_TransitionDuration: .168405533
   m_TransitionOffset: 0
-  m_ExitTime: .964285731
+  m_ExitTime: .968958557
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -183,13 +177,7 @@ AnimatorStateMachine:
       first: {fileID: 0}
       second: []
     data:
-      first: {fileID: 0}
-      second: []
-    data:
       first: {fileID: 110795824}
-      second: []
-    data:
-      first: {fileID: 0}
       second: []
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -60, y: 84, z: 0}

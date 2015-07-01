@@ -333,10 +333,13 @@ public class PlayerControll : MonoBehaviour {
 			yield return new WaitForSeconds (0.01F);
 		}
 
-		if (downFlg == NONE) {
+//		int fallCnt
+		while (downFlg == NONE) {
 			StartCoroutine("fFallPlayer");
-			print ("GAMEOVER");
-			yield return new WaitForSeconds(30.0f);
+			print ("GAMEOVER" + downFlg);
+			yield return new WaitForSeconds(0.05f);
+			print ("GAMEOVER" + downFlg + transform.position.y);
+			yield return new WaitForSeconds(0.05f);
 		}
 		/*		
 		print ("横ジャンプ" + speed3 + " , " + (int)(1.0f / speed3));
@@ -528,12 +531,12 @@ public class PlayerControll : MonoBehaviour {
 			yield return new WaitForSeconds (0.01f);
 		}
 		
-		floorFlg = BLOCK;
+//		floorFlg = BLOCK;
 		
 		yield return new WaitForSeconds (1.5f);
 
 			anim.SetTrigger ("isMoveTrigger");
-		fNextMove ();
+		//fNextMove ();
 	}
 	
 }

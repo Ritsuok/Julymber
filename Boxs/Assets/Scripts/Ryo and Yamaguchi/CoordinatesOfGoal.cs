@@ -32,22 +32,22 @@ public class CoordinatesOfGoal : MonoBehaviour {
 			}
 			
 			//********************************************* 0620 yamaguchi start
-			
+			else if(c.gameObject.tag == "Block" || c.gameObject.tag == "Floor")
+			{
+				ctl.floorFlg = BLOCK;
+			}
+
 			else if(c.gameObject.tag == "TurnR")
 			{
 				ctl.floorFlg = RIGHT;
-				c.gameObject.tag = "Block";
+				c.gameObject.tag = "CheckOut";
 				
 				//				print ("HHH" + c.gameObject.tag);
 			}
 			else if(c.gameObject.tag == "TurnL")
 			{
 				ctl.floorFlg = LEFT;
-				c.gameObject.tag = "Block";
-			}
-			else if(c.gameObject.tag == "Block")
-			{
-				//				ctl.floorFlg = BLOCK;
+				c.gameObject.tag = "CheckOut";
 			}
 			else if(c.gameObject.tag == "Spling"){
 				ctl.floorFlg = SPLING;
@@ -60,8 +60,7 @@ public class CoordinatesOfGoal : MonoBehaviour {
 	void OnTriggerExit(Collider c){
 
 		print ("change floorFlag");
-//				ctl.floorFlg = NONE;
+
+		ctl.floorFlg = NONE;
 	}
-	
-	
 }

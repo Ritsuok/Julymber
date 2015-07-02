@@ -4,7 +4,12 @@ using System.Collections;
 
 
 public class TimeScripts : MonoBehaviour {
-	public float time;
+	private float time;
+
+	private GameObject circleObj;
+	private RadialTimerScript radicaltimer;
+
+	public bool isStart = false;
 
 	//public GameObject UIPanelButton;
 	//public GameObject gameOverText;
@@ -18,28 +23,38 @@ public class TimeScripts : MonoBehaviour {
 		//float型からint型へCastし、String型に変換して表示
 		GetComponent<Text>().text = ((int)time).ToString();
 		//time = RadialTimerScript.stageTimeLimit;
+		circleObj = GameObject.Find ("CircleGageDummy");
+		radicaltimer = circleObj.GetComponent<RadialTimerScript> ();
+		time = radicaltimer.stageTimeLimit;
 	}
 	
-	
+
 	
 	void Update (){
-		//1秒に1ずつ減らしていく
-		time -= Time.deltaTime;
-
-/*		if (time < 0) {
+		if (isStart == true) {
+			//1秒に1ずつ減らしていく
+			time -= Time.deltaTime;
+			
+			/*		if (time < 0) {
 			StartCoroutine ("GameOver");
 		}
 */
-		//マイナスは表示しない	
-		if (time < 0) {
-			time = 0;
+			//マイナスは表示しない	
+			if (time < 0) {
+				time = 0;
+			}
+			
+			GetComponent<Text> ().text = 
+				((int)time / 60).ToString ("00") + ":" + 
+					((int)time % 60).ToString ("00") + ":" + 
+					(Mathf.Floor (time % 1 * 100)).ToString ("00") + " SEC";
 		}
 
-		GetComponent<Text> ().text = 
-			((int)time / 60).ToString ("00") + ":" + 
-				((int)time % 60).ToString ("00") + ":" + 
-				(Mathf.Floor (time % 1 * 100)).ToString ("00") + " SEC";
 	}
+	public void fStart(){
+		isStart = true;
+	}
+
 
 /*	IEnumerator GameOver() {
 		gameOverobj.SetActive (true);

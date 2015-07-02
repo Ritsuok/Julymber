@@ -8,7 +8,7 @@ public class StartBtn : MonoBehaviour {
 	private GameObject startCube;
 	private startCubeAnim startcubeanim;
 
-	private GameObject retryBtn;
+	public GameObject retryBtn;
 	
 	// Use this for initialization
 	void Start () {
@@ -16,7 +16,7 @@ public class StartBtn : MonoBehaviour {
 		playerObj = GameObject.Find("Boxs2nd1");
 		playercontroll = playerObj.GetComponent<PlayerControll>();
 
-		retryBtn = GameObject.Find ("ButtonRetry");
+		//retryBtn = GameObject.Find ("ButtonRetry");
 		retryBtn.SetActive (false);
 
 		startCube = GameObject.Find ("StartCube");
@@ -29,12 +29,14 @@ public class StartBtn : MonoBehaviour {
 		
 	}
 	public void fLetsStart(){
-		gameObject.SetActive (false);
+
 		retryBtn.SetActive (true);
+		gameObject.SetActive (false);
 		playercontroll.fStartButton ();
 		playercontroll.fNextMove();
 
 		startcubeanim.fChangeGreen ();
+
 	}
 	public void fStartBtnOn(){
 		gameObject.SetActive (true);

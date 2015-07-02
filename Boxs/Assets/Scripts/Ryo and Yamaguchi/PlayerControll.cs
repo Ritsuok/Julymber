@@ -34,21 +34,6 @@
  *　PlayerControll.cs内
  *　0630 yamaguchi dashで囲まれている4箇所
  *
- *
- ****************************************************************************************************
- ****************************************************************************************************
- ****************************************************************************************************
- *
- * 0702 yamaguchi spling
- * 
- * 未実装
- * 　spling cubeに乗ったら前方2マスジャンプ
- * 
- * 内容
- * 　spling tagを持つcubeが下にあった場合 ジャンプアクションとともに2マス前方へ移動
- * 　ジャンプ直前に落下ブロックを確認し ジャンプ軌道上にある場合は少し待つ？
- * 　2マス先にブロックがあった場合は ぶつかって1マス前で倒れる
- * 　
 */
 
 using UnityEngine;
@@ -104,10 +89,10 @@ public class PlayerControll : MonoBehaviour {
 	//*************************************************** 0702 kawashima changeGreen start
 	private GameObject startcube;
 	private startCubeAnim startcubeanim;
-
+	
 	private GameObject startbtnObj;
 	private StartBtn startbtn;
-
+	
 	//*************************************************** 0702 kawashima changeGreen finish
 	void Awake()
 	{
@@ -169,6 +154,8 @@ public class PlayerControll : MonoBehaviour {
 			//ここでカウントダウン用表示
 		}
 		
+		fSendCountStart ();
+		
 		cdText.text = "GO";
 		
 		//********************************************************************* 0630 yamaguchi count down finish
@@ -178,8 +165,11 @@ public class PlayerControll : MonoBehaviour {
 		startcubeanim.fChangeGreen ();
 
 		startbtnObj = GameObject.Find ("ButtonStart");
-		startbtn = startbtnObj.GetComponent<StartBtn> ();
-		startbtn.fStartBtnOff ();
+		if (startbtnObj != null) {
+			startbtn = startbtnObj.GetComponent<StartBtn> ();
+			startbtn.fStartBtnOff ();
+		}
+
 		//*************************************************** 0702 kawashima changeGreen finish
 		fNextMove ();
 	}
@@ -238,13 +228,11 @@ public class PlayerControll : MonoBehaviour {
 			print ("fDownPlayer");
 			StartCoroutine ("fDownPlayer");
 		}
-/*
 		else if (floorFlg == SPLING) {
 			
 			print ("fSpling1Player");
 			StartCoroutine ("fSpling1Player");
 		}
-*/
 		else if (frontFlg== NONE)
 		{
 			print ("fWalkPlayer");
@@ -358,8 +346,14 @@ public class PlayerControll : MonoBehaviour {
 		print ((int)(dist / speed));
 		print (1.0f - (int)(dist / speed)*speed);
 		
+		float xx = transform.position.x;
+		float zz = transform.position.z;
+		
+		//		GetComponent<Rigidbody> ().useGravity = true;
+		//		GetComponent<BoxCollider> ().enabled = true;
 		
 		float speed2 = 0.05F;
+		
 		
 		
 		print ("落下" + speed2 + " , " + (int)(1.0f / speed2));
@@ -371,6 +365,9 @@ public class PlayerControll : MonoBehaviour {
 			deltaDistZ += speed3/5.0f;
 			deltaDistY += speed2;
 		}
+		
+		//		GetComponent<Rigidbody> ().useGravity = false;
+		//		GetComponent<BoxCollider> ().enabled = false;
 		
 		transform.Translate (0, -(1.0f - deltaDistY), 1 - deltaDistZ);
 		
@@ -605,7 +602,9 @@ public class PlayerControll : MonoBehaviour {
 	}
 	
 	IEnumerator fFallGameOverChk(){
-		GetComponent<CapsuleCollider> ().enabled = true;
+		GetComponent<Rigidbody> ().useGravity = true;
+		GetComponent<BoxCollider> ().enabled = true;
+		
 		int fallCnt = 0;
 		while (floorFlg == NONE) {
 			StartCoroutine("fFallPlayer");
@@ -620,10 +619,12 @@ public class PlayerControll : MonoBehaviour {
 			yield return new WaitForSeconds(0.5f);
 			Application.LoadLevel("GameOver");
 		}
-
-		GetComponent<CapsuleCollider> ().enabled = false;
+		
+		GetComponent<Rigidbody> ().useGravity = false;
+		GetComponent<BoxCollider> ().enabled = false;
+		
 	}
-
+	
 	//-------------------------------------------------0630 method add by igarashi
 	//fAvoidBlock()
 	//ブロックが上から降ってきて、かつ立ち止まることを選択したとき
@@ -638,8 +639,14 @@ public class PlayerControll : MonoBehaviour {
 		
 		print ("ヘッドバンド!");
 		GetComponent<Animator>().SetTrigger("isHeadButtTrigger");
-
+		
 		Destroy (objectC);
 		yield return new WaitForSeconds (0.01F);
+	}
+	
+	private void fSendCountStart(){
+		GameObject circleObj = GameObject.Find ("CircleGageDummy");
+		RadialTimerScript radicaltimer = circleObj.GetComponent<RadialTimerScript> ();
+				radicaltimer.fStartCount ();
 	}
 }

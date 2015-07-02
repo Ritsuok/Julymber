@@ -2,13 +2,13 @@
 using System.Collections;
 
 public class RetryBtn : MonoBehaviour {
-	private GameObject startBtn;
+	public GameObject startBtn;
 	private StartBtn startbtnScript;
 	// Use this for initialization
 	void Start () {
 
 		
-		startBtn = GameObject.Find ("ButtonStart");
+		//startBtn = GameObject.Find ("ButtonStart");
 		print (startBtn);
 
 

@@ -19,7 +19,7 @@ public class RadialTimerScript : MonoBehaviour {
 		{
 			//ゲージの最大値を制限時間と同期させる
 			CircleGauge.fillAmount = stageTimeLimit;
-
+		isGameStart = false;
 		timeObj = GameObject.Find ("CountText");
 		timeScripts = timeObj.GetComponent<TimeScripts> ();
 
@@ -47,5 +47,6 @@ public class RadialTimerScript : MonoBehaviour {
 	}
 	public void fStartCount(){
 		isGameStart = true;
+		Debug.Log ("isGameStart = " + isGameStart);
 	}
 }

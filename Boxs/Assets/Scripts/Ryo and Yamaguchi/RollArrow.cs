@@ -5,21 +5,21 @@ public class RollArrow : MonoBehaviour {
 	float rollSpeed = 5;
 	public GameObject turnCanvas;
 	GameObject clone;
-
+	
 	// Use this for initialization
 	void Start ()
 	{
 		StartCoroutine ("fFlagAvoid");
-
+		
 		if (gameObject.tag == "TurnL")
 		{
 			clone = Instantiate (turnCanvas, transform.position, Quaternion.Euler (90, 0, 0)) as GameObject;
-
+			
 			clone.transform.SetParent(transform);
-
+			
 			StartCoroutine ("fRollLObject");
 		}
-
+		
 		if (gameObject.tag == "TurnR")
 		{
 			
@@ -32,21 +32,21 @@ public class RollArrow : MonoBehaviour {
 			
 			StartCoroutine ("fRollRObject");
 		}
-
-//********************************************* 0629 igarashi start
+		
+		//********************************************* 0629 igarashi start
 		if (gameObject.tag == "Bomb") 
 		{
 			StartCoroutine ("fBombObject");
 		}
-//********************************************* 0629 igarashi end
-
+		//********************************************* 0629 igarashi end
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		
 	}
-
+	
 	IEnumerator fRollLObject()
 	{
 		while (true)
@@ -55,29 +55,29 @@ public class RollArrow : MonoBehaviour {
 			yield return new WaitForSeconds (0.01F);
 		}
 	}
-
+	
 	IEnumerator fRollRObject()
 	{
 		while (true)
 		{
-//			print ("aaaa");
-//			print (rollSpeed);
+			//			//print ("aaaa");
+			//			//print (rollSpeed);
 			clone.transform.Rotate (0, 0, -rollSpeed);
 			yield return new WaitForSeconds (0.01F);
 		}
 	}
-
-//********************************************* 0629 igarashi start
+	
+	//********************************************* 0629 igarashi start
 	IEnumerator fBombObject()
 	{
 		Collider collider;
-
+		
 		while (true)
 		{
-
+			
 			if ((transform.localPosition.y % 1) >= 0.999F)
 			{
-
+				
 				Collider[] c = Physics.OverlapSphere (new Vector3 (transform.localPosition.x,
 				                                                   transform.localPosition.y - 1,
 				                                                   transform.localPosition.z), 0.1F);
@@ -89,15 +89,15 @@ public class RollArrow : MonoBehaviour {
 			}
 			yield return new WaitForSeconds (0.01F);
 		}
-
+		
 		//sound
 		Sounds.SEbomb ();
-
+		
 		Destroy (collider.gameObject);
 		Destroy (gameObject);
 	}
-//********************************************* 0629 igarashi end
-
+	//********************************************* 0629 igarashi end
+	
 	//--------------------------------------------------------------------0630 method add by igarashi
 	//fFlagAvoid()
 	//ブロックが上から降ってきた時のフラグ判定、とりあえず、その場で立ち止まるか
@@ -106,7 +106,7 @@ public class RollArrow : MonoBehaviour {
 	IEnumerator fFlagAvoid()
 	{
 		
-		print ("はははははは");
+		//print ("はははははは");
 		
 		bool searchFine = false;
 		
@@ -119,10 +119,10 @@ public class RollArrow : MonoBehaviour {
 			                                                   transform.localPosition.z), 1F);
 			foreach (var item in c)
 			{
-				print ("くそおおお" + item.tag);
+				//print ("くそおおお" + item.tag);
 				if (item.tag == "SensorForAvoidBlock")
 				{	
-					print ("どうどう");
+					//print ("どうどう");
 					
 					//PlayerControllスクリプトのfAvoid
 					item.gameObject.GetComponentInParent<PlayerControll> ().StartCoroutine("fAvoidBlock", gameObject);
@@ -146,7 +146,7 @@ public class RollArrow : MonoBehaviour {
 				//fFlagAvoid()を終了する
 				if (endFlag == true)
 				{
-					print ("終わりだぜ");
+					//print ("終わりだぜ");
 					break;
 				}
 			}

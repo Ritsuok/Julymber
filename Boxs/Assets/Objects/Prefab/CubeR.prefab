@@ -11,6 +11,8 @@ GameObject:
   - 33: {fileID: 3354358}
   - 23: {fileID: 2393884}
   - 114: {fileID: 11453104}
+  - 65: {fileID: 6540566}
+  - 54: {fileID: 5473088}
   m_Layer: 0
   m_Name: CubeR
   m_TagString: TurnR
@@ -43,7 +45,7 @@ Transform:
   m_GameObject: {fileID: 129614}
   m_LocalRotation: {x: -.707106709, y: -3.09086161e-08, z: 3.09086232e-08, w: .707106829}
   m_LocalPosition: {x: 0, y: -1.91999996, z: 1.15999997}
-  m_LocalScale: {x: .5, y: .50000006, z: .50000006}
+  m_LocalScale: {x: .49000001, y: .49000001, z: .49000001}
   m_Children:
   - {fileID: 457816}
   m_Father: {fileID: 0}
@@ -122,6 +124,33 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129614}
   m_Mesh: {fileID: 4300002, guid: 6bac2359104710e489a10ef0e399f64c, type: 3}
+--- !u!54 &5473088
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129614}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &6540566
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129614}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2.00000048, z: 1.99999964}
+  m_Center: {x: -5.96046448e-08, y: -1.19209268e-07, z: -2.96461532e-21}
 --- !u!114 &11453104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -144,6 +173,26 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: TurnR
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.y
+      value: .49000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.z
+      value: .49000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.x
+      value: .49000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ReceiveShadows
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

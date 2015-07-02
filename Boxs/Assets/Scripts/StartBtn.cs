@@ -31,4 +31,8 @@ public class StartBtn : MonoBehaviour {
 		gameObject.SetActive (true);
 		retryBtn.SetActive (false);
 	}
+	public void fStartBtnOff(){
+		gameObject.SetActive (false);
+		retryBtn.SetActive (true);
+	}
 }

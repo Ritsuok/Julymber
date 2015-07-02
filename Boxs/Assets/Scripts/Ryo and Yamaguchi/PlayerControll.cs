@@ -86,6 +86,14 @@ public class PlayerControll : MonoBehaviour {
 	
 	private int testCnt=0;
 	//*************************************************** 0630 yamaguchi dash finish
+	//*************************************************** 0702 kawashima changeGreen start
+	private GameObject startcube;
+	private startCubeAnim startcubeanim;
+
+	private GameObject startbtnObj;
+	private StartBtn startbtn;
+
+	//*************************************************** 0702 kawashima changeGreen finish
 	void Awake()
 	{
 		downFlg = BLOCK;
@@ -149,8 +157,15 @@ public class PlayerControll : MonoBehaviour {
 		cdText.text = "GO";
 		
 		//********************************************************************* 0630 yamaguchi count down finish
-		
-		
+		//*************************************************** 0702 kawashima changeGreen start
+		startcube = GameObject.Find ("StartCube");
+		startcubeanim = startcube.GetComponent<startCubeAnim> ();
+		startcubeanim.fChangeGreen ();
+
+		startbtnObj = GameObject.Find ("ButtonStart");
+		startbtn = startbtnObj.GetComponent<StartBtn> ();
+		startbtn.fStartBtnOff ();
+		//*************************************************** 0702 kawashima changeGreen finish
 		fNextMove ();
 	}
 	

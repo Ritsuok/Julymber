@@ -23,7 +23,7 @@ public class CoordinatesOfGoal : MonoBehaviour {
 		
 	}
 	
-	void OnTriggerStay(Collider c)
+	void OnTriggerEnter(Collider c)
 	{
 		if (player.GetComponent<PlayerControll> ().frontFlg != GOAL) 
 		{

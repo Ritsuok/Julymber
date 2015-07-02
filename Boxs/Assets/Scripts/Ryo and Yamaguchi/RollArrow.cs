@@ -9,6 +9,8 @@ public class RollArrow : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
+		StartCoroutine ("fFlagAvoid");
+
 		if (gameObject.tag == "TurnL")
 		{
 			clone = Instantiate (turnCanvas, transform.position, Quaternion.Euler (90, 0, 0)) as GameObject;
@@ -95,4 +97,63 @@ public class RollArrow : MonoBehaviour {
 		Destroy (gameObject);
 	}
 //********************************************* 0629 igarashi end
+
+	//--------------------------------------------------------------------0630 method add by igarashi
+	//fFlagAvoid()
+	//ブロックが上から降ってきた時のフラグ判定、とりあえず、その場で立ち止まるか
+	//もしくは通常のmoveを実行し続けるだけの判定
+	//ダッシュやスライディング、ブロック破壊は後回し予定
+	IEnumerator fFlagAvoid()
+	{
+		
+		print ("はははははは");
+		
+		bool searchFine = false;
+		
+		while (true)
+		{
+			
+			//落下ブロックの座標を中心に半径１の球体センサーを作る
+			Collider[] c = Physics.OverlapSphere (new Vector3 (transform.localPosition.x,
+			                                                   transform.localPosition.y,
+			                                                   transform.localPosition.z), 1F);
+			foreach (var item in c)
+			{
+				print ("くそおおお" + item.tag);
+				if (item.tag == "SensorForAvoidBlock")
+				{	
+					print ("どうどう");
+					
+					//PlayerControllスクリプトのfAvoid
+					item.gameObject.GetComponentInParent<PlayerControll> ().StartCoroutine("fAvoidBlock", gameObject);
+					searchFine = true;
+					break;
+				}
+			}
+			
+			
+			
+			if (searchFine == true) break;
+			
+			if ((transform.localPosition.y % 1) >= 0.999F)
+			{
+				//落下ブロック座標よりｙ軸に-1に極小のセンサーを作る
+				//ちな、この c2 は範囲と発生場所的に上の c より先に他コライダーと接触することはない（はず）
+				bool endFlag = Physics.CheckSphere (new Vector3 (transform.localPosition.x,
+				                                                 transform.localPosition.y - 1,
+				                                                 transform.localPosition.z), 0.1F);
+				//上記コライダーが何かブロック接触していない場合、このwhile文を抜け出し
+				//fFlagAvoid()を終了する
+				if (endFlag == true)
+				{
+					print ("終わりだぜ");
+					break;
+				}
+			}
+			
+			yield return new WaitForSeconds (0.01F);
+			
+		}
+		
+	} // end fFlagAvoid()
 }

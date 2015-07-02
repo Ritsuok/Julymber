@@ -13,6 +13,7 @@ TagManager:
   - Spling
   - Bomb
   - CheckOut
+  - SensorForAvoidBlock
   layers:
   - Default
   - TransparentFX

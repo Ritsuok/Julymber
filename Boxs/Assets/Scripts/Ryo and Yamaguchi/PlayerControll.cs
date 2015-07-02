@@ -603,5 +603,23 @@ public class PlayerControll : MonoBehaviour {
 			Application.LoadLevel("GameOver");
 		}
 	}
-	
+
+	//-------------------------------------------------0630 method add by igarashi
+	//fAvoidBlock()
+	//ブロックが上から降ってきて、かつ立ち止まることを選択したとき
+	//主人公の座標移動を一時停止させることが必要となる
+	//停止させる場所は、ブロックの中心点でなくてはならないとする
+	//そうするとそのブロック通過後、fNextMoveを呼ぶだけで通常のルーチンに戻れる
+	//落とす予定のブロックより、１ブロック手前の中心点にまだ主人公が到達していない場合
+	//単純に次のフラグ判定のfNextMoveの呼び出しをキャンセルさせれば中心点で足踏みする動作となる
+	//すでに中心点を過ぎている場合は、一度中心点にまで戻ってからfNextMoveの呼び出しをキャンセルする
+	public IEnumerator fAvoidBlock(GameObject objectC)
+	{
+		
+		print ("ヘッドバンド!");
+		GetComponent<Animator>().SetTrigger("isHeadButtTrigger");
+
+		Destroy (objectC);
+		yield return new WaitForSeconds (0.01F);
+	}
 }

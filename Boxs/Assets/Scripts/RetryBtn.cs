@@ -9,9 +9,6 @@ public class RetryBtn : MonoBehaviour {
 
 		
 		startBtn = GameObject.Find ("ButtonStart");
-		print (startBtn);
-
-
 		startbtnScript = startBtn.GetComponent<StartBtn> ();
 
 		

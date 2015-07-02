@@ -11,5 +11,3 @@ EditorBuildSettings:
     path: Assets/Scenes/ProductScenes/StageSelect.unity
   - enabled: 1
     path: Assets/Scenes/ProductScenes/stage01.unity
-  - enabled: 1
-    path: Assets/Scenes/ProductScenes/GameOver.unity

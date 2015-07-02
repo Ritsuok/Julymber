@@ -2147,7 +2147,7 @@ GameObject:
   - 114: {fileID: 674592353}
   - 114: {fileID: 674592355}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: CountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2195,7 +2195,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 00:00:00 sec
 --- !u!222 &674592354
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2213,7 +2213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bd8f6e492f12e049b5fb3e25904023d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 60
+  isStart: 0
 --- !u!4 &679232178 stripped
 Transform:
   m_PrefabParentObject: {fileID: 449384, guid: cc7540597be91af4186c0043cd9cd844, type: 2}
@@ -6947,17 +6947,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc05c358c76fdb4abf143a756c3de56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stage: {fileID: 0}
+  stage: {fileID: 8300000, guid: c88fca6ed2cefa043b40f1ceb7b463b1, type: 3}
   cursor: {fileID: 8300000, guid: 8f89aca832109b344b1b316f135be5a8, type: 3}
-  cursor2: {fileID: 0}
+  cursor2: {fileID: 8300000, guid: 780079990cc142641abde531faa68ec6, type: 3}
   decision: {fileID: 8300000, guid: 6b3260334982e8f4bbc071e17900af8f, type: 3}
   bomb: {fileID: 8300000, guid: 2abf6fb6563dcfd41b05e72430510001, type: 3}
-  shine: {fileID: 0}
-  union: {fileID: 0}
+  shine: {fileID: 8300000, guid: b1e92da3fcc39fa4b856a55ed667026e, type: 3}
+  union: {fileID: 8300000, guid: 4487f9e11020cc14ca595358d68f9dae, type: 3}
   select: {fileID: 8300000, guid: ff8e4762640cd13408634b74206cb1e9, type: 3}
   cancel: {fileID: 8300000, guid: efdae9db9c1477742bf0d42ed61e6ec0, type: 3}
   error: {fileID: 8300000, guid: 436af7c7e41f22d4b8b0f8740992d21c, type: 3}
-  shutter: {fileID: 0}
+  shutter: {fileID: 8300000, guid: c2a1a6897378f8c4383539a216f65f48, type: 3}
 --- !u!114 &2017447856
 MonoBehaviour:
   m_ObjectHideFlags: 0

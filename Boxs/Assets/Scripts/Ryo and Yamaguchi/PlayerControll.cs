@@ -34,6 +34,21 @@
  *　PlayerControll.cs内
  *　0630 yamaguchi dashで囲まれている4箇所
  *
+ *
+ ****************************************************************************************************
+ ****************************************************************************************************
+ ****************************************************************************************************
+ *
+ * 0702 yamaguchi spling
+ * 
+ * 未実装
+ * 　spling cubeに乗ったら前方2マスジャンプ
+ * 
+ * 内容
+ * 　spling tagを持つcubeが下にあった場合 ジャンプアクションとともに2マス前方へ移動
+ * 　ジャンプ直前に落下ブロックを確認し ジャンプ軌道上にある場合は少し待つ？
+ * 　2マス先にブロックがあった場合は ぶつかって1マス前で倒れる
+ * 　
 */
 
 using UnityEngine;
@@ -223,11 +238,13 @@ public class PlayerControll : MonoBehaviour {
 			print ("fDownPlayer");
 			StartCoroutine ("fDownPlayer");
 		}
+/*
 		else if (floorFlg == SPLING) {
 			
 			print ("fSpling1Player");
 			StartCoroutine ("fSpling1Player");
 		}
+*/
 		else if (frontFlg== NONE)
 		{
 			print ("fWalkPlayer");
@@ -588,6 +605,7 @@ public class PlayerControll : MonoBehaviour {
 	}
 	
 	IEnumerator fFallGameOverChk(){
+		GetComponent<CapsuleCollider> ().enabled = true;
 		int fallCnt = 0;
 		while (floorFlg == NONE) {
 			StartCoroutine("fFallPlayer");
@@ -602,6 +620,8 @@ public class PlayerControll : MonoBehaviour {
 			yield return new WaitForSeconds(0.5f);
 			Application.LoadLevel("GameOver");
 		}
+
+		GetComponent<CapsuleCollider> ().enabled = false;
 	}
 
 	//-------------------------------------------------0630 method add by igarashi

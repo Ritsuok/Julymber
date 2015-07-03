@@ -54,6 +54,9 @@ public class TimeScripts : MonoBehaviour {
 	public void fStart(){
 		isStart = true;
 	}
+	public void fStop(){
+		isStart = false;
+	}
 
 
 /*	IEnumerator GameOver() {

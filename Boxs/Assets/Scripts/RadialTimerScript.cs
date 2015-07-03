@@ -30,7 +30,7 @@ public class RadialTimerScript : MonoBehaviour {
 
 		//制限時間と同期したタイミングでゲージを減少させる
 		if (CircleGauge.fillAmount > 0 && isGameStart == true) {
-			timeScripts.fStart();
+
 			CircleGauge.fillAmount -= 1 / stageTimeLimit * Time.deltaTime;
 		} else if (CircleGauge.fillAmount == 0) {
 			//タイムが０になったらゲームオーバー画面に遷移
@@ -47,6 +47,11 @@ public class RadialTimerScript : MonoBehaviour {
 	}
 	public void fStartCount(){
 		isGameStart = true;
+		timeScripts.fStart();
 		Debug.Log ("isGameStart = " + isGameStart);
+	}
+	public void fStopCount(){
+		isGameStart = false;
+		timeScripts.fStop ();
 	}
 }

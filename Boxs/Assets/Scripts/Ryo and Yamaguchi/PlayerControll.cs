@@ -94,6 +94,13 @@ public class PlayerControll : MonoBehaviour {
 	private StartBtn startbtn;
 	
 	//*************************************************** 0702 kawashima changeGreen finish
+	//*************************************************** 0703 kawashima changeGreen start
+	private GameObject circleObj;
+	private RadialTimerScript radicaltimer;
+	private GameObject subCamera;
+	private PlayerCamera playerCamera;
+	//*************************************************** 0703 kawashima changeGreen finish
+
 	void Awake()
 	{
 		downFlg = BLOCK;
@@ -117,6 +124,12 @@ public class PlayerControll : MonoBehaviour {
 		//*************************************************** 0630 yamaguchi dash start
 		speed0 = speed;
 		//*************************************************** 0630 yamaguchi dash finish
+		//*************************************************** 0703 kawashima changeGreen start
+		circleObj = GameObject.Find ("CircleGageDummy");
+		radicaltimer = circleObj.GetComponent<RadialTimerScript> ();
+		subCamera = GameObject.Find ("SubCamera");
+		playerCamera = subCamera.GetComponent<PlayerCamera> ();
+		//*************************************************** 0703 kawashima changeGreen finish
 	}
 	
 	// Update is called once per frame
@@ -193,6 +206,10 @@ public class PlayerControll : MonoBehaviour {
 		if (floorFlg == GOAL) {
 			print ("fGoalPlayer");
 			StartCoroutine ("fGoalPlayer");
+			//*************************************************** 0703 kawashima changeGreen start
+			radicaltimer.fStopCount();
+			playerCamera.fChangeToSubCamera(gameObject.transform);
+			//*************************************************** 0703 kawashima changeGreen finish
 		}
 		
 		//********************************************* 0620 yamaguchi start
@@ -645,8 +662,7 @@ public class PlayerControll : MonoBehaviour {
 	}
 	
 	private void fSendCountStart(){
-		GameObject circleObj = GameObject.Find ("CircleGageDummy");
-		RadialTimerScript radicaltimer = circleObj.GetComponent<RadialTimerScript> ();
+
 				radicaltimer.fStartCount ();
 	}
 }
